@@ -1,31 +1,7 @@
 // This script will run first, and then the other files
 // depends on blackprint.config.js configuration
 
-// Prepare stuff when the page is loading
-// maybe like loading our dependencies for the nodes
 
-
-/* Parallely load dependencies from CDN here (optional) */
-//>> imports(...) =>  sf.loader.mjs(...) or [import(..), ..];
-var [ SFMediaStream ] = await imports([
-	// This is just an example, remove if not needed
-	"https://cdn.jsdelivr.net/npm/sfmediastream@latest"
-]);
-
-
-/* or wait until the browser was loaded all script and the DOM was ready
- * without load another dependency
- *
- * Warning: When using this, you must modify wrapped:'mjs' to wrapped:'async-mjs'
- * on blackprint.config.js, to avoid circular waiting (because this module also waiting)
- *
- * Info: imports.task() == sf.loader.task;
- */
-// await imports.task();
-
-
-
-//> Optional, just for Blackprint Editor
 // Let the Blackprint Editor know the source URL where
 // the registerNode and registerInterface belongs to
 let Blackprint = window.Blackprint.loadScope({
@@ -37,8 +13,18 @@ let Blackprint = window.Blackprint.loadScope({
 	hasInterface: true,
 });
 
-// Global shared context
-let Context = Blackprint.getContext('Your/Module/Name');
+
+/* Parallely load dependencies from CDN here (optional) */
+//>> imports(...) =>  sf.loader.mjs(...) or [import(..), ..];
+await sf.loader.js([
+	"https://cdn.jsdelivr.net/npm/babylonjs@5.0.0-beta.4/babylon.min.js",
+	"https://cdn.jsdelivr.net/npm/babylonjs-loaders@5.0.0-beta.4/babylonjs.loaders.min.js",
+], {ordered: true});
+
+
+// Global shared context (share to _init.sf)
+let Context = Blackprint.createContext('Babylon.js');
+
 
 // This is needed to avoid duplicated event listener when using hot reload
 // Event listener that registered with same slot will be replaced

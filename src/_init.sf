@@ -24,5 +24,8 @@ let Blackprint = window.Blackprint.loadScope({
 	url: import.meta.url,
 });
 
-// Global shared context
-let Context = Blackprint.getContext('Your/Module/Name');
+// Use sQuery
+let $ = sf.$;
+
+// Global shared context (wait it to avoid race condition)
+let Context = await Blackprint.getContext('Babylon.js');
