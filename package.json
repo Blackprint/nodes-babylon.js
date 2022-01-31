@@ -1,21 +1,29 @@
 {
-  "name": "bp-your-library-name",
-  "description": "Description for your Blackprint nodes",
+  "name": "@blackprint/nodes-babylon.js",
+  "description": "Blackprint nodes for Babylon.js",
   "version": "0.0.1",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/your/repository.git"
+    "url": "https://github.com/Blackprint/nodes-babylon.js.git"
   },
-  "module": "dist/change-me.min.mjs",
+  "module": "dist/nodes-babylon.min.mjs",
   "scripts": {
     "start": "blackprint serve",
+    "test": "jest ./tests/",
     "build-prod": "blackprint build production"
   },
+  "dependencies": {
+    "@blackprint/engine": "0.5.x",
+    "@blackprint/sketch": "0.5.x",
+    "scarletsframe": "0.35.x"
+  },
   "devDependencies": {
-    "@blackprint/cli-tools": "0.3.x"
+    "@blackprint/cli-tools": "0.3.x",
+    "jest": "^27.4"
   },
   "keywords": [
-    "blackprint"
+    "blackprint",
+    "babylon.js"
   ]
 }

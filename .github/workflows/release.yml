@@ -1,11 +1,15 @@
-name: Release Module
-# This is only an example, please modify
+name: Release
 
-# on:
-#   push:
-#     branches:
-#       - master
-#       - main
+on:
+  workflow_dispatch:
+    inputs:
+      dryRun:
+        description: 'View list of files that will be published before the real release'
+        required: true
+        default: 'true'
+  release:
+    # This specifies that the build will be triggered when we publish a release
+    types: [published]
 
 jobs:
   build:
@@ -34,18 +38,21 @@ jobs:
           version: 6.0.2
           run_install: true
 
-      - run: pnpm i -g @blackprint/cli-tools@0.3
-
       - name: 🛠 Compiling Blackprint Modules
-        run: blackprint build production
+        run: npx blackprint build production
 
-      # ToDo: Add Blackprint node testing (for Browser/Node.js/Deno)
-      # - name: Run Tests
-      #   run: npm test
+      - run: npm version ${{ github.event.release.tag_name }}
+
+      - name: 🔥 Run Tests
+        run: npm test
+
+      - name: 📦 Dry Run
+        if: github.event.inputs.dryRun == 'true'
+        run: npm publish --dry-run
 
       # If you want to publish to NPM, make sure to put your NPM token to repository settings
       - name: 📦 Publish Packages
+        if: github.event.inputs.dryRun != 'true'
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
