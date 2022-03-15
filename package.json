@@ -7,18 +7,16 @@
     "type": "git",
     "url": "https://github.com/Blackprint/nodes-babylon.js.git"
   },
-  "module": "dist/nodes-babylon.min.mjs",
+  "module": "dist/nodes-babylon.mjs",
   "scripts": {
     "start": "blackprint serve",
-    "test": "jest ./tests/",
+    "test": "node --experimental-vm-modules --no-warnings node_modules/jest/bin/jest.js --verbose ./tests/",
     "build-prod": "blackprint build production"
   },
-  "dependencies": {
-    "@blackprint/engine": "0.5.x",
-    "@blackprint/sketch": "0.5.x",
-    "scarletsframe": "0.35.x"
-  },
   "devDependencies": {
+    "scarletsframe": "0.35.x",
+    "@blackprint/engine": "0.6.x",
+    "@blackprint/sketch": "0.6.x",
     "@blackprint/cli-tools": "0.3.x",
     "jest": "^27.4"
   },
