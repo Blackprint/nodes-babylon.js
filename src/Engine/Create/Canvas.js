@@ -1,9 +1,14 @@
-// Node will be initialized first by Blackprint Engine
-// This should be used for initialize port structure and set the target interface
+/**
+ * Create new engine instance and the rendering canvas
+ * @blackprint node
+ * @summary Babylon.js Scene
+ */
 Blackprint.registerNode('Babylon.js/Engine/Create/Canvas',
 class EngineCreateCanvas extends Blackprint.Node {
 	static output = {
+		/** Babylon's Engine */
 		Engine: BABYLON.Engine,
+		/** Canvas object that being used for rendering scenes */
 		Canvas: HTMLCanvasElement
 	};
 

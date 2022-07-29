@@ -14,24 +14,11 @@ class EmptyNode extends Blackprint.Node {
 		let iface = this.setInterface();
 		iface.title = "Free Camera";
 
-		iface.data = {
-			get position(){
-				if(this._position === void 0)
-					this._position = new BABYLON.Vector3(0, 5, -10);
-
-				return this._position;
-			},
-			set position(val){
-				val = val.replace(/ /g, '').split(',');
-				if(val.length !== 3) return;
-
-				this._position = new BABYLON.Vector3(...val);
-			},
-		};
+		iface.data = new SceneCameraFreeData(iface);
 	}
 
 	// Called when input value was updated
-	update(port){
+	update({ input: port }){
 		let {IInput, Input, Output} = this.ref;
 
 		if(port === IInput.Scene){
@@ -62,4 +49,27 @@ class EmptyNode extends Blackprint.Node {
 
 		Output.Camera?.dispose();
 	}
+});
+
+class SceneCameraFreeData {
+	#iface = null;
+	#position = '';
+
+	constructor(iface){
+		this.#iface = iface;
+		this.#position = new BABYLON.Vector3(0, 5, -10);
+	}
+
+	get position(){ return this.#position }
+	set position(val){
+		val = val.replace(/ /g, '').split(',');
+		if(val.length !== 3) return;
+
+		this.#position = new BABYLON.Vector3(...val);
+	}
+}
+
+// Using getter/setter will make the property not enumerable and Blackprint will skip that property when exporting
+Blackprint.utils.setEnumerablePrototype(SceneCameraFreeData, {
+	position: true,
 });

@@ -22,9 +22,8 @@ class EmptyNode extends Blackprint.Node {
 		};
 	}
 
-	update(port){
+	update({ input: port }){
 		let {IInput, Input, Output} = this.ref;
-		let data = this.iface.data;
 
 		if(port === IInput.Scene){
 			let data = this.iface.data;

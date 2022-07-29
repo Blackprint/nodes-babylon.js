@@ -4,7 +4,7 @@ module.exports = {
 	description: "Babylon.js nodes for Blackprint",
 
 	// If this set to true, the compiler will skip this config/module
-	disabled: false,
+	disabled: !false,
 
 	// Uncomment this if you want to copy /dist/... files to current folder
 	// Especially if you want to publish it to NPM Registry
@@ -16,6 +16,9 @@ module.exports = {
 
 	// Optional: Add header to every combined file
 	header: "/* MIT Licensed */",
+
+	// Optional: Extract registerNode's JSDocs
+	bpDocs: '@cwd/dist/nodes-babylonjs.docs.json',
 
 	// (Required)
 	// The .js file probably can be imported for non-browser too

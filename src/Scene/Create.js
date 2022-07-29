@@ -1,11 +1,16 @@
-// Node will be initialized first by Blackprint Engine
-// This should be used for initialize port structure and set the target interface
+/**
+ * Create new scene where you can put light, camera, mesh, etc
+ * @blackprint node
+ * @summary Babylon.js Scene
+ */
 Blackprint.registerNode('Babylon.js/Scene/Create',
-class EngineCreateCanvas extends Blackprint.Node {
+class extends Blackprint.Node {
 	renderLoop = null;
 
 	static input = {
+		/** Babylon's Engine */
 		Engine: BABYLON.Engine,
+		/** Begin rendering this scene into the engine */
 		Render: Blackprint.Port.Trigger(function(){
 			if(this.renderLoop !== null) return;
 
@@ -15,6 +20,7 @@ class EngineCreateCanvas extends Blackprint.Node {
 			this.renderLoop = ()=> { scene.render() };
 			this.input.Engine.runRenderLoop(this.renderLoop);
 		}),
+		/** Pause rendering this scene on the engine */
 		Pause: Blackprint.Port.Trigger(function(){
 			if(this.renderLoop === null) return;
 
@@ -23,20 +29,22 @@ class EngineCreateCanvas extends Blackprint.Node {
 		}),
 	};
 
-	static output = { Scene: BABYLON.Scene };
+	static output = {
+		/** This scene object */
+		Scene: BABYLON.Scene,
+	};
 
 	constructor(instance){
 		super(instance);
 
 		let iface = this.setInterface();
 		iface.title = 'Scene';
-		iface.description = 'Babylon.js Scene';
 	}
 
-	update(port){
+	update(cable){
 		let {IInput, Input, Output} = this.ref;
 
-		if(port === IInput.Engine)
+		if(cable.input === IInput.Engine)
 			Output.Scene = new BABYLON.Scene(Input.Engine);
 	}
 
