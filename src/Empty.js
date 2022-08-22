@@ -2,7 +2,7 @@ if(false){ // Avoid executing line below when this file being compiled
 // You can just copy and paste code below as a template for creating nodes
 
 Blackprint.registerNode("Babylon.js/Scene/Empty",
-class EmptyNode extends Blackprint.Node {
+class extends Blackprint.Node {
 	static input = {};
 	static output = {};
 

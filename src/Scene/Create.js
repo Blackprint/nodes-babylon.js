@@ -11,21 +11,23 @@ class extends Blackprint.Node {
 		/** Babylon's Engine */
 		Engine: BABYLON.Engine,
 		/** Begin rendering this scene into the engine */
-		Render: Blackprint.Port.Trigger(function(){
-			if(this.renderLoop !== null) return;
+		Render: Blackprint.Port.Trigger(function({ iface }){
+			let node = iface.node;
+			if(node.renderLoop !== null) return;
 
-			let scene = this.output.Scene;
+			let scene = node.output.Scene;
 			if(scene === void 0) throw new Error("Scene was not found");
 
-			this.renderLoop = ()=> { scene.render() };
-			this.input.Engine.runRenderLoop(this.renderLoop);
+			node.renderLoop = ()=> { scene.render() };
+			node.input.Engine.runRenderLoop(node.renderLoop);
 		}),
 		/** Pause rendering this scene on the engine */
-		Pause: Blackprint.Port.Trigger(function(){
-			if(this.renderLoop === null) return;
+		Pause: Blackprint.Port.Trigger(function({ iface }){
+			let node = iface.node;
+			if(node.renderLoop === null) return;
 
-			this.input.Engine.stopRenderLoop(this.renderLoop);
-			this.renderLoop = null
+			node.input.Engine.stopRenderLoop(node.renderLoop);
+			node.renderLoop = null
 		}),
 	};
 

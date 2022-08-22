@@ -1,5 +1,5 @@
 Blackprint.registerNode("Babylon.js/Scene/Mesh/Sphere",
-class EmptyNode extends Blackprint.Node {
+class extends Blackprint.Node {
 	static input = {
 		Scene: BABYLON.Scene,
 		// Position: BABYLON.Vector3,
