@@ -15,10 +15,12 @@
   },
   "devDependencies": {
     "scarletsframe": "0.35.x",
-    "@blackprint/engine": "0.6.x",
-    "@blackprint/sketch": "0.6.x",
+    "@blackprint/engine": "0.7.x",
+    "@blackprint/sketch": "0.7.x",
     "@blackprint/cli-tools": "0.3.x",
-    "jest": "^27.4"
+    "jest": "28.x",
+    "jest-environment-node": "28.x",
+    "jest-environment-jsdom": "28.x"
   },
   "keywords": [
     "blackprint",

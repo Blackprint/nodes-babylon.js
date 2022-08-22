@@ -4,7 +4,7 @@ module.exports = {
 	description: "Babylon.js nodes for Blackprint",
 
 	// If this set to true, the compiler will skip this config/module
-	disabled: !false,
+	disabled: false,
 
 	// Uncomment this if you want to copy /dist/... files to current folder
 	// Especially if you want to publish it to NPM Registry
