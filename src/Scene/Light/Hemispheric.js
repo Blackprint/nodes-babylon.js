@@ -10,6 +10,7 @@ class extends Blackprint.Node {
 
 	constructor(instance){
 		super(instance);
+		this.partialUpdate = true;
 
 		let iface = this.setInterface();
 		iface.title = "Hemispheric Light";
