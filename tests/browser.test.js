@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 require("@blackprint/engine");
 
 // === For Browser Environment ===
