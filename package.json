@@ -1,7 +1,7 @@
 {
   "name": "@blackprint/nodes-babylon.js",
   "description": "Blackprint nodes for Babylon.js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -15,12 +15,12 @@
   },
   "devDependencies": {
     "scarletsframe": "0.35.x",
-    "@blackprint/engine": "0.7.x",
-    "@blackprint/sketch": "0.7.x",
+    "@blackprint/engine": "0.8.x",
+    "@blackprint/sketch": "0.8.x",
     "@blackprint/cli-tools": "0.3.x",
-    "jest": "28.x",
-    "jest-environment-node": "28.x",
-    "jest-environment-jsdom": "28.x"
+    "jest": "29.x",
+    "jest-environment-node": "29.x",
+    "jest-environment-jsdom": "29.x"
   },
   "keywords": [
     "blackprint",
