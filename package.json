@@ -15,8 +15,8 @@
   },
   "devDependencies": {
     "scarletsframe": "0.35.x",
-    "@blackprint/engine": "0.8.x",
-    "@blackprint/sketch": "0.8.x",
+    "@blackprint/engine": "0.9.x",
+    "@blackprint/sketch": "0.9.x",
     "@blackprint/cli-tools": "0.3.x",
     "jest": "29.x",
     "jest-environment-node": "29.x",

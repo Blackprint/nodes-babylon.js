@@ -25,10 +25,9 @@ class extends Blackprint.Node {
 		};
 	}
 
-	update({ input: port }){
+	init(){
 		let {IInput, Input, Output} = this.ref;
-
-		if(port === IInput.Scene){
+		IInput.Scene.on('connect', ()=> {
 			let data = this.iface.data;
 
 			Output.Mesh?.dispose();
@@ -36,7 +35,11 @@ class extends Blackprint.Node {
 				width: data.width,
 				height: data.height,
 			}, Input.Scene);
-		}
+
+			IInput.Scene.once('disconnect', ()=> {
+				Output.Mesh.dispose();
+			});
+		});
 	}
 
 	destroy(){

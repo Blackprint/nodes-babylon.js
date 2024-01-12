@@ -2,8 +2,8 @@ Blackprint.registerNode("Babylon.js/Scene/Light/Hemispheric",
 class extends Blackprint.Node {
 	static input = {
 		Scene: BABYLON.Scene,
-		Position: BABYLON.Vector3,
-		Intensity: Number,
+		Position: BABYLON.Vector3, // ToDo
+		Intensity: Blackprint.Port.Default(Number, 1),
 	};
 
 	static output = { Light: BABYLON.Light };
@@ -17,23 +17,26 @@ class extends Blackprint.Node {
 		iface.data = new SceneLightHemisphericData(iface);
 	}
 
-	// Called when input value was updated
-	update({ input: port }){
+	init(){
 		let {IInput, Input, Output} = this.ref;
-
-		if(port === IInput.Scene){
+		IInput.Scene.on('connect', ()=> {
 			let data = this.iface.data;
 
 			Output.Light?.dispose();
 			Output.Light = new BABYLON.HemisphericLight("HemisphericLight", data.position, Input.Scene);
-		}
-		else if(port === IInput.Position){
-			// if(Output.Light != null)
-			// 	Output.Light.attachControl(IInput.Attach, true);
-		}
-		else if(port === IInput.Intensity){
 			Output.Light.intensity = Input.Intensity;
-		}
+
+			IInput.Scene.once('disconnect', ()=> {
+				Output.Light.dispose();
+			});
+		});
+	}
+
+	update(){
+		let {IInput, Input, Output} = this.ref;
+
+		if(Output.Light != null)
+			Output.Light.intensity = Input.Intensity;
 	}
 
 	destroy(){

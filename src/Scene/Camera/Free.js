@@ -18,11 +18,9 @@ class extends Blackprint.Node {
 		iface.data = new SceneCameraFreeData(iface);
 	}
 
-	// Called when input value was updated
-	update({ input: port }){
+	init(){
 		let {IInput, Input, Output} = this.ref;
-
-		if(port === IInput.Scene){
+		IInput.Scene.on('connect', ()=> {
 			let data = this.iface.data;
 
 			Output.Camera?.dispose();
@@ -32,9 +30,14 @@ class extends Blackprint.Node {
 
 			if(Input.Attach != null)
 				Output.Camera.attachControl(Input.Attach, true);
-		}
-		else if(port === IInput.Position){}
-		else if(port === IInput.Attach){
+
+			IInput.Scene.once('disconnect', ()=> {
+				Output.Camera.dispose();
+			});
+		});
+
+		// IInput.Position.on('connect', ()=> {});
+		IInput.Attach.on('connect', ()=> {
 			let canvas = Input.Attach;
 			if(Output.Camera != null)
 				Output.Camera.attachControl(canvas, true);
@@ -42,12 +45,11 @@ class extends Blackprint.Node {
 			IInput.Attach.once('disconnect', function(){
 				Output.Camera.detachControl(canvas);
 			});
-		}
+		});
 	}
 
 	destroy(){
 		let {Input, Output} = this.ref;
-
 		Output.Camera?.dispose();
 	}
 });

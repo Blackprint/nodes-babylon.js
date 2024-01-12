@@ -44,10 +44,10 @@ class extends Blackprint.Node {
 		iface.title = 'Scene';
 	}
 
-	update(cable){
+	update(){
 		let {IInput, Input, Output} = this.ref;
 
-		if(cable.input === IInput.Engine)
+		if(IInput.Engine != null)
 			Output.Scene = new BABYLON.Scene(Input.Engine);
 	}
 
